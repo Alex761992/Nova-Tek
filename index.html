@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Нова-ТЕК | Инженерные 3D-решения</title>
+    
+    <!-- Favicon (циркуль) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%231e3a8a'/%3E%3Cpath d='M16 4 L20 8 L20 14 L16 18 L12 14 L12 8 L16 4 Z' fill='none' stroke='%23dd6b20' stroke-width='2.5'/%3E%3Cline x1='16' y1='4' x2='16' y2='2' stroke='%23dd6b20' stroke-width='2.5'/%3E%3Cline x1='12' y1='8' x2='8' y2='6' stroke='%23dd6b20' stroke-width='2.5'/%3E%3Cline x1='20' y1='8' x2='24' y2='6' stroke='%23dd6b20' stroke-width='2.5'/%3E%3Ccircle cx='16' cy='4' r='1.5' fill='%23dd6b20'/%3E%3C/svg%3E">
+    <link rel="icon" href="data:,">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #f4f6f9; --bg-secondary: #eef0f3; --bg-card: #ffffff;
+            --text-primary: #1e293b; --text-secondary: #334155;
+            --accent-blue: #1e3a8a; --accent-orange: #dd6b20;
+            --border-light: #d1d5db; --border-dark: #9ca3af;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.02), 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -2px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            --grid-pattern: repeating-linear-gradient(0deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 1px, transparent 1px, transparent 20px), repeating-linear-gradient(90deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 1px, transparent 1px, transparent 20px);
+        }
+        body {
+            font-family: 'Inter', sans-serif; background-color: var(--bg-primary);
+            background-image: var(--grid-pattern); color: var(--text-primary); line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+        h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; }
+        h1 { font-size: clamp(2.4rem, 8vw, 3.8rem); line-height: 1.15; color: var(--accent-blue); }
+        h2 { font-size: 2.2rem; margin-bottom: 1.5rem; position: relative; display: inline-block; }
+        h2:after { content: ''; position: absolute; bottom: -8px; left: 0; width: 60px; height: 4px; background: var(--accent-orange); }
+        header { position: fixed; top: 0; left: 0; width: 100%; z-index: 100; background: rgba(244,246,249,0.92); backdrop-filter: blur(8px); border-bottom: 2px solid var(--accent-blue); padding: 14px 0; }
+        .header-inner { display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.03em; color: var(--accent-blue); border-right: 3px solid var(--accent-orange); padding-right: 20px; }
+        .header-actions { display: flex; align-items: center; gap: 28px; }
+        .header-phone { font-weight: 700; font-size: 1.3rem; color: var(--text-primary); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+        .header-phone i { color: var(--accent-orange); font-size: 1.4rem; }
+        .hero { padding: 160px 0 80px; }
+        .hero-grid { display: flex; align-items: center; gap: 50px; flex-wrap: wrap; }
+        .hero-content { flex: 1 1 400px; }
+        .hero-badge { display: inline-block; background: var(--accent-blue); color: white; font-weight: 600; font-size: 0.9rem; padding: 6px 16px; letter-spacing: 0.5px; margin-bottom: 24px; border-left: 4px solid var(--accent-orange); }
+        .hero-desc { font-size: 1.2rem; color: var(--text-secondary); margin: 20px 0 32px; max-width: 550px; border-left: 2px solid var(--border-dark); padding-left: 20px; }
+        .cta-group { display: flex; flex-wrap: wrap; gap: 16px; }
+        .btn { padding: 16px 32px; font-weight: 700; font-size: 1.1rem; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: all 0.2s; border: 2px solid transparent; cursor: pointer; }
+        .btn-primary { background: var(--accent-orange); color: white; box-shadow: var(--shadow-md); }
+        .btn-primary:hover { background: #c0561a; transform: translateY(-2px); box-shadow: 0 8px 15px -6px rgba(221,107,32,0.4); }
+        .btn-outline { background: transparent; border: 2px solid var(--accent-blue); color: var(--accent-blue); }
+        .btn-outline:hover { background: var(--accent-blue); color: white; }
+        .hero-visual { flex: 1 1 380px; background: var(--bg-card); padding: 20px; border: 1px solid var(--border-light); box-shadow: var(--shadow-md); position: relative; overflow: hidden; }
+        .hero-visual::before { content: ''; position: absolute; top: -8px; left: -8px; right: 8px; bottom: 8px; border: 2px solid var(--accent-blue); opacity: 0.15; pointer-events: none; z-index: 1; }
+        .hero-visual img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; border-radius: inherit; }
+        .hero-visual .placeholder-3d { width: 100%; aspect-ratio: 4/3; background: linear-gradient(145deg, #e2e8f0, #cbd5e1); display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--accent-blue); font-weight: 600; border: 1px solid var(--border-dark); position: relative; z-index: 2; }
+        .section { padding: 60px 0; }
+        .section-title-wrapper { margin-bottom: 40px; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; }
+        .service-card { background: var(--bg-card); padding: 32px 24px; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); transition: transform 0.15s, border-color 0.2s; border-top: 4px solid var(--accent-blue); }
+        .service-card:hover { transform: translateY(-6px); border-color: var(--accent-orange); box-shadow: var(--shadow-md); }
+        .service-icon { font-size: 2.5rem; color: var(--accent-orange); margin-bottom: 24px; }
+        .service-card h3 { font-size: 1.6rem; margin-bottom: 12px; color: var(--accent-blue); }
+        
+        /* ГАЛЕРЕЯ */
+        .slider-container { position: relative; max-width: 100%; margin: 0 auto; }
+        .slider-wrapper { overflow: hidden; border: 1px solid var(--border-light); box-shadow: var(--shadow-md); background: var(--bg-card); }
+        .slider-track { display: flex; transition: transform 0.4s ease; }
+        .slider-slide { flex: 0 0 100%; }
+        .slider-slide img { width: 100%; height: auto; max-height: 500px; object-fit: contain; background: #f8fafc; display: block; }
+        .slider-caption { padding: 16px 20px; background: var(--bg-card); border-top: 1px solid var(--border-light); }
+        .slider-caption h4 { font-size: 1.3rem; margin-bottom: 4px; color: var(--accent-blue); }
+        .slider-caption p { color: var(--text-secondary); font-size: 0.95rem; }
+        .slider-btn { position: absolute; top: 40%; transform: translateY(-50%); width: 40px; height: 40px; background: var(--bg-card); border: 1px solid var(--border-light); color: var(--accent-blue); font-size: 1.2rem; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; transition: 0.2s; box-shadow: var(--shadow-sm); border-radius: 50%; }
+        .slider-btn:hover { background: var(--accent-blue); color: white; border-color: var(--accent-blue); }
+        .slider-btn.prev { left: -15px; }
+        .slider-btn.next { right: -15px; }
+        .slider-dots { display: flex; justify-content: center; gap: 10px; margin-top: 16px; }
+        .slider-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border-light); border: 1px solid var(--border-dark); cursor: pointer; transition: 0.2s; }
+        .slider-dot.active { background: var(--accent-orange); border-color: var(--accent-orange); transform: scale(1.2); }
+        @media (max-width: 768px) {
+            .slider-slide img { max-height: 300px; }
+            .slider-btn { width: 36px; height: 36px; } 
+            .slider-btn.prev { left: -8px; } 
+            .slider-btn.next { right: -8px; }
+        }
+        @media (max-width: 480px) {
+            .slider-slide img { max-height: 250px; }
+            .slider-btn { top: 35%; }
+        }
+
+        .steps { display: flex; flex-wrap: wrap; gap: 30px; margin-top: 30px; }
+        .step { flex: 1 1 180px; background: var(--bg-card); padding: 28px 20px; border: 1px solid var(--border-light); }
+        .step-number { font-size: 2.2rem; font-weight: 800; color: var(--accent-orange); line-height: 1; margin-bottom: 16px; border-bottom: 3px solid var(--accent-blue); display: inline-block; padding-bottom: 8px; }
+        .contact-block { background: var(--bg-card); padding: 24px 20px; border: 2px solid var(--accent-blue); box-shadow: var(--shadow-md); text-align: center; max-width: 700px; margin: 0 auto; }
+        .contact-phone-large { font-size: 2.2rem; font-weight: 800; color: var(--accent-blue); text-decoration: none; display: inline-block; margin: 12px 0 20px; border-bottom: 4px solid var(--accent-orange); padding-bottom: 6px; }
+        .social-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 24px; }
+        .social-link { background: var(--bg-secondary); width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; color: var(--accent-blue); font-size: 1.6rem; text-decoration: none; border: 1px solid var(--border-light); transition: 0.15s; }
+        .social-link:hover { background: var(--accent-blue); color: white; border-color: var(--accent-blue); }
+        .form-group { margin-bottom: 12px; text-align: left; }
+        .form-group input { width: 100%; padding: 12px 16px; font-size: 0.95rem; font-family: 'Inter', sans-serif; border: 1px solid var(--border-light); background: var(--bg-secondary); color: var(--text-primary); outline: none; }
+        .form-group input:focus { border-color: var(--accent-orange); }
+        .form-submit { width: 100%; padding: 14px 24px; font-size: 1rem; }
+        .form-note { margin-top: 10px; font-size: 0.75rem; color: var(--text-secondary); opacity: 0.8; }
+        .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+        footer { background: var(--accent-blue); color: #e2e8f0; padding: 30px 0; text-align: center; margin-top: 40px; border-top: 6px solid var(--accent-orange); }
+        @media (max-width: 768px) {
+            .logo { font-size: 1.5rem; padding-right: 10px; } .header-phone { font-size: 1rem; } .header-phone span { display: none; }
+            .hero { padding: 130px 0 50px; } h2 { font-size: 1.9rem; } .contact-phone-large { font-size: 1.9rem; }
+            .btn { padding: 14px 24px; font-size: 1rem; }
+        }
+        @media (max-width: 480px) {
+            .container { padding: 0 16px; } .cta-group { flex-direction: column; } .btn { width: 100%; justify-content: center; }
+            .hero-visual .placeholder-3d { font-size: 0.9rem; } .step { flex: 1 1 100%; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-inner">
+            <div class="logo">Нова-ТЕК</div>
+            <div class="header-actions">
+                <a href="tel:+79080381606" class="header-phone"><i class="fas fa-phone-alt"></i><span>+7 908 038-16-06</span></a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero-grid">
+                <div class="hero-content fade-up visible">
+                    <span class="hero-badge"><i class="fas fa-ruler-combined" style="margin-right: 8px;"></i>ТОЧНОСТЬ В КАЖДОЙ ЛИНИИ</span>
+                    <h1>Инженерные 3D-решения для производства</h1>
+                    <div class="hero-desc">Моделирование, сканирование, реверс-инжиниринг и промышленный дизайн с гарантией геометрии.</div>
+                    <div class="cta-group">
+                        <a href="tel:+79080381606" class="btn btn-primary"><i class="fas fa-phone-alt"></i> Связаться сейчас</a>
+                        <a href="#contact-form" class="btn btn-outline"><i class="fas fa-envelope"></i> Оставить заявку</a>
+                    </div>
+                </div>
+                <div class="hero-visual fade-up visible">
+                    <img src="ISO.png" alt="3D модель ГОСТ/ISO" onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder-3d').style.display='flex';">
+                    <div class="placeholder-3d" style="display:none;"><i class="fas fa-drafting-compass" style="font-size: 3.5rem; margin-bottom: 16px;"></i><span style="font-size: 1.2rem; letter-spacing: 2px;">3D МОДЕЛЬ</span><span style="font-size: 0.8rem; margin-top: 8px; opacity: 0.7;">ГОСТ / ISO</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-title-wrapper fade-up"><h2>Компетенции</h2></div>
+                <div class="services-grid">
+                    <div class="service-card fade-up"><div class="service-icon"><i class="fas fa-cubes"></i></div><h3>3D моделирование</h3><p>Параметрические модели для ЧПУ, литья и 3D-печати.</p></div>
+                    <div class="service-card fade-up"><div class="service-icon"><i class="fas fa-3d"></i></div><h3>3D сканирование</h3><p>Высокоточные сканы до 0.02 мм. Контроль геометрии.</p></div>
+                    <div class="service-card fade-up"><div class="service-icon"><i class="fas fa-redo-alt"></i></div><h3>Реверс-инжиниринг</h3><p>Восстановление КД по физическому образцу. Чертежи ЕСКД.</p></div>
+                    <div class="service-card fade-up"><div class="service-icon"><i class="fas fa-pencil-ruler"></i></div><h3>Промышленный дизайн</h3><p>Эргономика, стилизация, подготовка к производству.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ГАЛЕРЕЯ (4 фото с пробелами в именах) -->
+        <section id="portfolio" class="section" style="background: var(--bg-secondary);">
+            <div class="container">
+                <div class="section-title-wrapper fade-up"><h2>Реализованные проекты</h2></div>
+                <div class="slider-container fade-up">
+                    <div class="slider-wrapper">
+                        <div class="slider-track" id="sliderTrack">
+                            <div class="slider-slide">
+                                <img src="foto1.png" alt="Реверс корпуса">
+                                <div class="slider-caption"><h4>Реверс корпуса</h4><p>Скан → CAD / STEP</p></div>
+                            </div>
+                            <div class="slider-slide">
+                                <img src="foto2.png" alt="Промдизайн прибора">
+                                <div class="slider-caption"><h4>Промдизайн прибора</h4><p>Концепт + рендер</p></div>
+                            </div>
+                            <div class="slider-slide">
+                                <img src="foto3.png" alt="Сканирование детали">
+                                <div class="slider-caption"><h4>Сканирование детали</h4><p>Контроль геометрии</p></div>
+                            </div>
+                            <div class="slider-slide">
+                                <img src="foto4.png" alt="Модель для ЧПУ">
+                                <div class="slider-caption"><h4>Модель для ЧПУ</h4><p>Производство оснастки</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="slider-btn prev" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="slider-btn next" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+                    <div class="slider-dots" id="sliderDots"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-title-wrapper fade-up"><h2>Рабочий процесс</h2></div>
+                <div class="steps">
+                    <div class="step fade-up"><div class="step-number">01</div><h4>Заявка и ТЗ</h4><p>Обсуждаем задачу, оцениваем точность, сроки.</p></div>
+                    <div class="step fade-up"><div class="step-number">02</div><h4>Сбор данных</h4><p>Сканирование или работа с чертежами.</p></div>
+                    <div class="step fade-up"><div class="step-number">03</div><h4>Моделирование</h4><p>Создание 3D-модели, проверка геометрии.</p></div>
+                    <div class="step fade-up"><div class="step-number">04</div><h4>Передача</h4><p>STEP, STL, чертежи PDF. Техподдержка.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact-form" class="section">
+            <div class="container contact-block fade-up">
+                <i class="fas fa-file-signature" style="font-size: 2rem; color: var(--accent-orange);"></i>
+                <h2 style="font-size: 1.6rem; margin: 10px 0 4px; color: var(--accent-blue);">Оставить заявку</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 16px; font-size: 0.95rem;">Напишите нам — ответим в течение часа</p>
+                
+                <form action="https://formsubmit.co/a.didkowsky@yandex.ru" method="POST">
+                    <input type="hidden" name="_subject" value="Новая заявка с сайта Нова-ТЕК">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    
+                    <div class="form-group"><input type="text" name="name" placeholder="Ваше имя" required></div>
+                    <div class="form-group"><input type="tel" name="phone" placeholder="Телефон для связи" required></div>
+                    <button type="submit" class="btn btn-primary form-submit"><i class="fas fa-paper-plane"></i> Отправить заявку</button>
+                    <p class="form-note"><i class="fas fa-lock"></i> Ваши данные не передаются третьим лицам</p>
+                </form>
+
+                <hr style="margin: 20px 0; border: none; border-top: 1px solid var(--border-light);">
+                
+                <i class="fas fa-phone-alt" style="font-size: 2rem; color: var(--accent-orange);"></i>
+                <h3 style="font-size: 1.2rem; margin: 10px 0; color: var(--accent-blue);">Или свяжитесь напрямую</h3>
+                <a href="tel:+79080381606" class="contact-phone-large">+7 908 038-16-06</a>
+                <div class="social-links">
+                    <a href="https://t.me/AlexGuruP" class="social-link" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="mailto:a.didkowsky@yandex.ru" class="social-link"><i class="far fa-envelope"></i></a>
+                    <a href="https://vk.com/aleks03" class="social-link" target="_blank"><i class="fab fa-vk"></i></a>
+                </div>
+                <p style="margin-top: 16px; font-size: 0.85rem; opacity:0.8;"><i class="far fa-clock"></i> Работаем по РФ и СНГ</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p style="font-weight: 500;">© 2026 Нова-ТЕК — 3D-моделирование, реверс-инжиниринг, промдизайн</p>
+            <p style="margin-top: 12px; opacity: 0.8; font-size: 0.9rem;">Точность. Надёжность. Инженерный подход.</p>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-up:not(.visible)').forEach(el => observer.observe(el));
+    </script>
+
+    <script>
+        (function(){
+            const track = document.getElementById('sliderTrack');
+            const slides = Array.from(track.children);
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const dotsContainer = document.getElementById('sliderDots');
+            let currentIndex = 0;
+
+            function updateSlider(index) {
+                track.style.transform = `translateX(-${index * 100}%)`;
+                const dots = dotsContainer.children;
+                for (let i = 0; i < dots.length; i++) dots[i].classList.toggle('active', i === index);
+            }
+
+            function createDots() {
+                for (let i = 0; i < slides.length; i++) {
+                    const dot = document.createElement('span');
+                    dot.classList.add('slider-dot');
+                    if (i === 0) dot.classList.add('active');
+                    dot.addEventListener('click', () => { currentIndex = i; updateSlider(i); });
+                    dotsContainer.appendChild(dot);
+                }
+            }
+
+            prevBtn.addEventListener('click', () => { currentIndex = (currentIndex - 1 + slides.length) % slides.length; updateSlider(currentIndex); });
+            nextBtn.addEventListener('click', () => { currentIndex = (currentIndex + 1) % slides.length; updateSlider(currentIndex); });
+            createDots();
+
+            let touchStartX = 0;
+            track.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; });
+            track.addEventListener('touchend', e => {
+                const diff = e.changedTouches[0].screenX - touchStartX;
+                if (Math.abs(diff) > 50) {
+                    if (diff < 0) currentIndex = (currentIndex + 1) % slides.length;
+                    else currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+                    updateSlider(currentIndex);
+                }
+            });
+        })();
+    </script>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === "#" || href === "") return;
+                const target = document.querySelector(href);
+                if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+       (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+       m[i].l=1*new Date();
+       for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+       k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+       (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+       ym(108720306, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/108720306" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+</body>
+</html>
